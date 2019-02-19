@@ -1,0 +1,16 @@
+### This script is to demonstrate the usage of Decon_single_sample.R
+
+# install decoderr package
+devtools::install_github("laurapeng/decoderr")
+library("decoderr")
+
+# load data
+data <- log2(COMPASS_PDAC$expr+1)
+rownames(data) <- make.names(COMPASS_PDAC$geneInfo$geneSymbol, unique = T)
+refSet <- "TCGA_RNAseq_PAAD"
+
+# run estimation function
+sampleWeights <- Decon_single_sample(refSet,
+                                     data,
+                                     "geneSymbol")
+sampleWeights <- Norm_PDAC_weights(sampleWeights)
