@@ -9,7 +9,7 @@
 
 
 Norm_PDAC_weights <- function(sampleWeight){
-  sampleWeight <- sampleWeight[,c(9,5,4,7,2,1,3,6,8)]
+  sampleWeight <- sampleWeight[,c(9,5,4,7,2,1,3)]
   sampleWeightNorm <- data.frame(sweep(sampleWeight, 1, rowSums(sampleWeight), FUN="/"))
   names(sampleWeightNorm) <- c("BasalTumor","ClassicalTumor",
                                "ActivatedStroma","NormalStroma",
