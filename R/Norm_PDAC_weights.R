@@ -13,7 +13,7 @@ Norm_PDAC_weights <- function(sampleWeight){
   sampleWeightNorm <- data.frame(sweep(sampleWeight, 1, rowSums(sampleWeight), FUN="/"))
   names(sampleWeightNorm) <- c("BasalTumor","ClassicalTumor",
                                "ActivatedStroma","NormalStroma",
-                               "Immune","Exocrine","Endocrine","Histone","Olfactory")
+                               "Immune","Exocrine","Endocrine")
   sampleWeightNorm$bcRatio <- (sampleWeightNorm$BasalTumor+0.01)/(sampleWeightNorm$ClassicalTumor+0.01)
   sampleWeightNorm$bcRatio[sampleWeightNorm$bcRatio > 5] <- 5
   sampleWeightNorm$anRatio <- (sampleWeightNorm$ActivatedStroma+0.01)/(sampleWeightNorm$NormalStroma+0.01)
