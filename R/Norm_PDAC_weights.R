@@ -1,7 +1,7 @@
 #' Function for sample weight normalization for PDAC
 #'
-#' 
-#' 
+#'
+#'
 #' @param sampleWeight Sample weights calculated by Decon_single_sample.R
 #' @return Normalized sample weights
 #' @export
@@ -14,9 +14,20 @@ Norm_PDAC_weights <- function(sampleWeight){
   names(sampleWeightNorm) <- c("BasalTumor","ClassicalTumor",
                                "ActivatedStroma","NormalStroma",
                                "Immune","Endocrine","Exocrine")
+
   sampleWeightNorm$bcRatio <- (sampleWeightNorm$BasalTumor+0.01)/(sampleWeightNorm$ClassicalTumor+0.01)
   sampleWeightNorm$bcRatio[sampleWeightNorm$bcRatio > 5] <- 5
+  sampleWeightNorm$bcDiff <- sampleWeightNorm$BasalTumor-sampleWeightNorm$ClassicalTumor
+  sampleWeightNorm$bcSum <- sampleWeightNorm$BasalTumor+sampleWeightNorm$ClassicalTumor
+
   sampleWeightNorm$anRatio <- (sampleWeightNorm$ActivatedStroma+0.01)/(sampleWeightNorm$NormalStroma+0.01)
   sampleWeightNorm$anRatio[sampleWeightNorm$anRatio > 5] <- 5
+  sampleWeightNorm$anDiff <- sampleWeightNorm$ActivatedStroma-sampleWeightNorm$NormalStroma
+  sampleWeightNorm$anSum <- sampleWeightNorm$ActivatedStroma+sampleWeightNorm$NormalStroma
+
+  sampleWeightNorm$aiRatio <- (sampleWeightNorm$ActivatedStroma+0.01)/(sampleWeightNorm$Immune+0.01)
+  sampleWeightNorm$aiRatio[sampleWeightNorm$aiRatio > 5] <- 5
+  sampleWeightNorm$aiDiff <- sampleWeightNorm$ActivatedStroma-sampleWeightNorm$Immune
+
   return(sampleWeightNorm)
 }
