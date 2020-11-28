@@ -28,6 +28,12 @@ Norm_PDAC_weights <- function(sampleWeight){
   sampleWeightNorm$aiRatio <- (sampleWeightNorm$ActivatedStroma+0.01)/(sampleWeightNorm$Immune+0.01)
   sampleWeightNorm$aiRatio[sampleWeightNorm$aiRatio > 5] <- 5
   sampleWeightNorm$aiDiff <- sampleWeightNorm$ActivatedStroma-sampleWeightNorm$Immune
+  sampleWeightNorm$aiSum <- sampleWeightNorm$ActivatedStroma+sampleWeightNorm$Immune
+
+  sampleWeightNorm$aniRatio <- (sampleWeightNorm$ActivatedStroma+0.01)/(sampleWeightNorm$NormalStroma+sampleWeightNorm$Immune+0.01)
+  sampleWeightNorm$aniRatio[sampleWeightNorm$aniRatio > 5] <- 5
+  sampleWeightNorm$aniDiff <- sampleWeightNorm$ActivatedStroma-sampleWeightNorm$NormalStroma-sampleWeightNorm$Immune
+  sampleWeightNorm$aniSum <- sampleWeightNorm$ActivatedStroma+sampleWeightNorm$NormalStroma+sampleWeightNorm$Immune
 
   return(sampleWeightNorm)
 }
